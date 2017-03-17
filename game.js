@@ -6,11 +6,29 @@ var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
 var ballRadius = 10;
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed = false;
 
+// Key-press event listners
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+// Draw ball function
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#FF0000";
+    ctx.fill();
+    ctx.closePath();
+}
+// Draw paddle function
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
 }
