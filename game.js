@@ -44,10 +44,18 @@ function drawBall() {
 }
 // Draw paddle function
 function drawPaddle() {
+
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
+    var imageObj = new Image();
+    imageObj.onload = function() {
+      var pattern = ctx.createPattern(imageObj, 'no-repeat');
+
+      ctx.rect(10, 0, canvas.width, canvas.height);
+      ctx.fillStyle = pattern;
+      ctx.fill();
+    };
+    imageObj.src = 'paddle.png';
     ctx.closePath();
 }
 
