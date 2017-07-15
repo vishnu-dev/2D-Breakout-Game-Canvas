@@ -151,6 +151,7 @@ function drawLives() {
 
 function draw() {
     if(enterPressed==1){
+      document.getElementById("enter").style.display="none";
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBricks();
       drawBall();
