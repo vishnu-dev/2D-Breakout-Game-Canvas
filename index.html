@@ -9,18 +9,44 @@
 		}
 		body{
 			background-color: black;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
 		}
 		canvas{
 			background:  url('back.jpg');
 			display: block;
 			background-size: 100% 100%;
 		}
+		.red{
+		    font-size:100px;
+			color:red;
+		}
+		.black{
+		    font-size:100px;
+			color:black;
+		}
 	</style>
 </head>
 <body>
-	<center>
-		<canvas id="myCanvas" width="768px" height="500px"></canvas>
-	</center>
+	<div>
+		<center>
+		<div>
+			<canvas id="myCanvas" width="768px" height="500px"></canvas>
+		</div>
+		<center>
+			<div id="win" style="display:none">
+				<p class="red">YOU WON!</p>
+				<a onclick="window.location.reload(true);"><button><p class="black">Play Again</p></button></a>
+			</div>
+			<div id="lost" style="display:none">
+				<p class="red">GAME OVER!</p>
+				<span class="red">Score:</span><span class="red" id="score"></span><br>
+				<a onclick="window.location.reload(true);"><button><p class="black">Play Again</p></button></a>
+			</div>
+		</center>
+		</center>
+	</div>
+	
 	<script src="game.js"></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 50;
 var colorchanger = "#FF0000"
 var score = 0;
+var lives = 3;
 var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
@@ -75,8 +76,8 @@ function collisionDetection() {
                     colorchanger='#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATULATIONS!");
-                        document.location.reload();
+                        return gameWin();
+                        clearInterval(refreshIntervalId);
                     }
                 }
             }
@@ -128,6 +129,26 @@ function drawScore() {
     ctx.fillText("Score: "+score, 8, 20);
 }
 
+// Game over function
+function gameOver() {
+  document.getElementById("myCanvas").style.display="none";
+  document.getElementById("lost").style.display="block";
+  document.getElementById("score").innerHTML=score;
+}
+
+// Game won function
+function gameWin() {
+  document.getElementById("myCanvas").style.display="none";
+  document.getElementById("win").style.display="block";
+}
+
+// Draw lives
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
 function draw() {
     if(enterPressed==1){
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -136,6 +157,7 @@ function draw() {
       drawPaddle();
       collisionDetection();
       drawScore();
+      drawLives();
 
       //Ball transform position
       if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -144,13 +166,13 @@ function draw() {
       if(y + dy < ballRadius) {
         dy = -dy;
       }
-      else if(y + dy > canvas.height-ballRadius) {
+      else if(y + dy > canvas.height-paddleHeight) {
           if(x > paddleX && x < paddleX + paddleWidth) {
               dy = -dy;
           }
           else {
-              alert("GAME OVER");
-              document.location.reload();
+            return gameOver();
+            clearInterval(refreshIntervalId);
           }
       }
       if(rightPressed && paddleX < canvas.width-paddleWidth) {
@@ -164,4 +186,4 @@ function draw() {
       y += dy;
     }
 }
-setInterval(draw, 10);
+var refreshIntervalId = setInterval(draw, 10);
